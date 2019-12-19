@@ -1,0 +1,37 @@
+<template name="filmList">
+  <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
+    <block wx:for="{{tabItem}}" wx:for-index="tabIndex" wx:for-item="item" wx:key="">
+      <view class="tab-item {{currentTab==tabIndex?'active':''}}" data-current="{{tabIndex}}" bindtap="swichNav">{{item.text}}</view>
+    </block>
+  </scroll-view>
+  <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{windowHeight}}rpx">
+    <swiper-item wx:for="{{[0,1,2,3,4,5,6,7]}}" wx:key="">
+      <block wx:if="{{showLoading}}">
+        <view class="loading">玩命加载中…</view>
+      </block>
+      <block wx:else>
+        <scroll-view scroll-y="true" style="height: {{windowHeight}}rpx" bindscroll="scroll" bindscrolltolower="scrolltolower">
+          <view class="film">
+            <block wx:for="{{films}}" wx:for-index="filmIndex" wx:for-item="filmItem" wx:key="*this">
+              <view data-id="{{filmItem.index}}" data-type="{{filmItem.type}}" class="film-item" catchtap="viewFilmDetail">
+                <view class="film-cover">
+                  <image src="{{filmItem.imageUrl}}" class="film-cover-img"></image>
+                </view>
+                <view class="file-intro">
+                  <view class="film-title">{{filmItem.name}}</view>
+                  <view class="film-tag">{{filmItem.definition}}</view>
+                </view>
+              </view>
+            </block>
+            <block wx:if="{{hasMore}}">
+              <view class="loading-tip">拼命加载中…</view>
+            </block>
+            <block wx:else>
+              <view class="loading-tip">没有更多内容了</view>
+            </block>
+          </view>
+        </scroll-view>
+      </block>
+    </swiper-item>
+  </swiper>
+</template>

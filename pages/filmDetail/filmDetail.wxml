@@ -1,0 +1,39 @@
+<view class="container">
+    <block wx:if="{{showLoading}}">
+        <view class="loading">玩命加载中…</view>
+    </block>
+    <block wx:else>
+    <!-- fd: film detail -->
+        <view class="fd-hd">
+            <view class="fd-hd-bg" style="background-image: url({{filmDetail.imageUrl}})"></view>
+            <image src="{{filmDetail.imageUrl}}" class="fd-cover"></image>
+            <view class="fd-intro">
+                <view class="fd-title">{{filmDetail.name}}</view>
+                <view class="fd-intro-txt">
+                    {{filmDetail.actor}}
+                </view>
+                <view class="fd-intro-txt">上映年份：{{filmDetail.time}}</view>
+            </view>
+        </view>
+        <view class="fd-bd">
+            <view class="fd-bd-title">剧情简介</view>
+            <view class="fd-bd-intro">{{filmDetail.description}}</view>
+            <view class="fd-bd-title">下载资源</view>
+            <view class="fd-bd-person">
+                <block wx:for="{{filmDetail.actionMovieDownloadList}}" wx:for-item="filmDetailCastItem" wx:key="filmDetailCastItem">
+                        <view class="fd-bd-person-name">{{filmDetailCastItem.typeMovieDownload}}</view>
+                        <view class="fd-bd-person-role">
+                         <text decode="{{true}}">{{filmDetailCastItem.movieDownload}}</text></view>
+                         <view class="fd-bd-copy" bindtap="copyTBL" data-text="{{filmDetailCastItem.movieDownload}}">一键复制</view><!-- 复制操作 -->
+                </block>
+            </view>
+            <view class="fd-bd-title">标签</view>
+            <view class="fd-bd-tag">
+               {{filmDetail.type}}
+            </view>
+             <view class="fd-bd-notice">
+              注意：如果显示下载资源链接，可以使用一键复制功能到迅雷等软件下载资源！
+            </view>
+        </view>
+    </block> 
+</view>
